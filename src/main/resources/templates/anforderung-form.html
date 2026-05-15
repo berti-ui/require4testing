@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Neue Anforderung</title></head>
+<body>
+    <h1>Neue Anforderung</h1>
+    <form th:action="@{/anforderungen}" th:object="${anforderung}" method="post">
+        <label>Titel: <input type="text" th:field="*{titel}"/></label><br/>
+        <label>Beschreibung: <input type="text" th:field="*{beschreibung}"/></label><br/>
+        <button type="submit">Speichern</button>
+    </form>
+</body>
+</html>

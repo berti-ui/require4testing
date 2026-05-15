@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Anforderungen</title></head>
+<body>
+    <h1>Anforderungen</h1>
+    <a href="/anforderungen/neu">Neue Anforderung</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Titel</th>
+            <th>Beschreibung</th>
+        </tr>
+        <tr th:each="a : ${anforderungen}">
+            <td th:text="${a.id}"></td>
+            <td th:text="${a.titel}"></td>
+            <td th:text="${a.beschreibung}"></td>
+        </tr>
+    </table>
+</body>
+</html>
