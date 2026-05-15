@@ -32,4 +32,23 @@ public class AnforderungController {
         repository.save(anforderung);
         return "redirect:/anforderungen";
     }
-} 
+
+    @GetMapping("/anforderungen/{id}/bearbeiten")
+    public String bearbeitenForm(@PathVariable Long id, Model model) {
+        model.addAttribute("anforderung", repository.findById(id).orElseThrow());
+        return "anforderung-form";
+    }
+
+    @PostMapping("/anforderungen/{id}/bearbeiten")
+    public String aktualisieren(@PathVariable Long id, @ModelAttribute Anforderung anforderung) {
+        anforderung.setId(id);
+        repository.save(anforderung);
+        return "redirect:/anforderungen";
+    }
+
+    @PostMapping("/anforderungen/{id}/loeschen")
+    public String loeschen(@PathVariable Long id) {
+        repository.deleteById(id);
+        return "redirect:/anforderungen";
+    }
+}
