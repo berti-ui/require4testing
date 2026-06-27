@@ -2,61 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Require4Testing</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-    <div class="container">
-        <a class="navbar-brand" href="/">Require4Testing</a>
-        <div class="navbar-nav">
-            <a class="nav-link" href="/anforderungen">Anforderungen</a>
-            <a class="nav-link" href="/testfaelle">Testfälle</a>
-            <a class="nav-link" href="/testlaeufe">Testläufe</a>
-            <a class="nav-link" href="/testdurchfuehrungen">Testdurchführungen</a>
-        </div>
-    </div>
-</nav>
-<div class="container">
-    <h1 class="mb-2">Require4Testing</h1>
-    <p class="text-muted mb-4">Web-Applikation zur Organisation manueller Anwendertests</p>
-    <div class="row g-3">
-        <div class="col-md-3">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Anforderungen</h5>
-                    <p class="card-text text-muted">Anforderungen erstellen und verwalten (US 1)</p>
-                    <a href="/anforderungen" class="btn btn-primary">Öffnen</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Testfälle</h5>
-                    <p class="card-text text-muted">Testfälle zu Anforderungen erstellen (US 3)</p>
-                    <a href="/testfaelle" class="btn btn-primary">Öffnen</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Testläufe</h5>
-                    <p class="card-text text-muted">Testläufe anlegen und Testfälle zuordnen (US 2 + 4)</p>
-                    <a href="/testlaeufe" class="btn btn-primary">Öffnen</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Testdurchführungen</h5>
-                    <p class="card-text text-muted">Ergebnisse für Testdurchführungen erfassen (US 5)</p>
-                    <a href="/testdurchfuehrungen" class="btn btn-primary">Öffnen</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div th:replace="~{fragments :: nav}"></div>
+<h1>Require4Testing</h1>
+<p>Web-Applikation zur Organisation manueller Anwendertests</p>
+<ul>
+    <li><a href="/anforderungen">Anforderungen</a> – Anforderungen erstellen und verwalten (US 1)</li>
+    <li><a href="/testfaelle">Testfälle</a> – Testfälle zu Anforderungen erstellen (US 3)</li>
+    <li><a href="/testlaeufe">Testläufe</a> – Testläufe anlegen und Testfälle zuordnen (US 2 + 4)</li>
+    <li><a href="/testdurchfuehrungen">Testdurchführungen</a> – Ergebnisse für Testdurchführungen erfassen (US 5)</li>
+</ul>
 </body>
 </html>

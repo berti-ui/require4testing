@@ -1,6 +1,8 @@
 package com.require4testing.model;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Testfall {
@@ -16,6 +18,9 @@ public class Testfall {
     @JoinColumn(name = "anforderung_id")
     private Anforderung anforderung;
 
+    @OneToMany(mappedBy = "testfall", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Testdurchfuehrung> testdurchfuehrungen = new ArrayList<>();
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -27,4 +32,7 @@ public class Testfall {
 
     public Anforderung getAnforderung() { return anforderung; }
     public void setAnforderung(Anforderung anforderung) { this.anforderung = anforderung; }
+
+    public List<Testdurchfuehrung> getTestdurchfuehrungen() { return testdurchfuehrungen; }
+    public void setTestdurchfuehrungen(List<Testdurchfuehrung> td) { this.testdurchfuehrungen = td; }
 }

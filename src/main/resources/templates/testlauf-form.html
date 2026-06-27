@@ -2,34 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Neuer Testlauf – Require4Testing</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-    <div class="container">
-        <a class="navbar-brand" href="/">Require4Testing</a>
-        <div class="navbar-nav">
-            <a class="nav-link" href="/anforderungen">Anforderungen</a>
-            <a class="nav-link" href="/testfaelle">Testfälle</a>
-            <a class="nav-link active" href="/testlaeufe">Testläufe</a>
-            <a class="nav-link" href="/testdurchfuehrungen">Testdurchführungen</a>
-        </div>
-    </div>
-</nav>
-<div class="container" style="max-width:600px">
-    <h1>Neuer Testlauf</h1>
-    <form th:action="@{/testlaeufe}" th:object="${testlauf}" method="post">
-        <div class="mb-3">
-            <label class="form-label fw-bold">Name</label>
-            <input type="text" class="form-control" th:field="*{name}" required/>
-        </div>
-        <div class="mb-3">
-            <label class="form-label fw-bold">Erstellungsdatum</label>
-            <input type="date" class="form-control" th:field="*{erstellungsdatum}"/>
-        </div>
-        <button type="submit" class="btn btn-primary">Speichern</button>
-        <a href="/testlaeufe" class="btn btn-secondary ms-2">Abbrechen</a>
-    </form>
-</div>
+<div th:replace="~{fragments :: nav}"></div>
+<h1>Neuer Testlauf</h1>
+<form th:action="@{/testlaeufe}" th:object="${testlauf}" method="post">
+    <p>
+        <label>Name:<br/>
+        <input type="text" th:field="*{name}" required/></label>
+    </p>
+    <p>
+        <label>Erstellungsdatum:<br/>
+        <input type="date" th:field="*{erstellungsdatum}"/></label>
+    </p>
+    <button type="submit">Speichern</button>
+    <a href="/testlaeufe">Abbrechen</a>
+</form>
 </body>
 </html>

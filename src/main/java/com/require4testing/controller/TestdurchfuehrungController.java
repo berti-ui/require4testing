@@ -3,9 +3,11 @@ package com.require4testing.controller;
 import com.require4testing.model.Ergebnis;
 import com.require4testing.model.Testdurchfuehrung;
 import com.require4testing.repository.TestdurchfuehrungRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 public class TestdurchfuehrungController {
@@ -25,7 +27,8 @@ public class TestdurchfuehrungController {
 
     @PostMapping("/testdurchfuehrungen/{id}/ergebnis")
     public String ergebnisSetzen(@PathVariable Long id, @RequestParam Ergebnis ergebnis) {
-        Testdurchfuehrung td = repository.findById(id).orElseThrow();
+        Testdurchfuehrung td = repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         td.setErgebnis(ergebnis);
         repository.save(td);
         return "redirect:/testdurchfuehrungen";

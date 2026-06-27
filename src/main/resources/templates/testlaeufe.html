@@ -2,50 +2,37 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Testläufe – Require4Testing</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-    <div class="container">
-        <a class="navbar-brand" href="/">Require4Testing</a>
-        <div class="navbar-nav">
-            <a class="nav-link" href="/anforderungen">Anforderungen</a>
-            <a class="nav-link" href="/testfaelle">Testfälle</a>
-            <a class="nav-link active" href="/testlaeufe">Testläufe</a>
-            <a class="nav-link" href="/testdurchfuehrungen">Testdurchführungen</a>
-        </div>
-    </div>
-</nav>
-<div class="container">
-    <h1>Testläufe</h1>
-    <a href="/testlaeufe/neu" class="btn btn-primary mb-3">+ Neuer Testlauf</a>
-    <table class="table table-striped table-bordered">
-        <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Erstellungsdatum</th>
-                <th>Aktionen</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="t : ${testlaeufe}">
-                <td th:text="${t.id}"></td>
-                <td th:text="${t.name}"></td>
-                <td th:text="${t.erstellungsdatum}"></td>
-                <td>
-                    <a th:href="@{/testlaeufe/{id}(id=${t.id})}" class="btn btn-sm btn-info">Details / Zuordnen</a>
-                    <form th:action="@{/testlaeufe/{id}/loeschen(id=${t.id})}" method="post" style="display:inline">
-                        <button type="submit" class="btn btn-sm btn-danger"
-                                onclick="return confirm('Testlauf wirklich löschen?')">Löschen</button>
-                    </form>
-                </td>
-            </tr>
-            <tr th:if="${#lists.isEmpty(testlaeufe)}">
-                <td colspan="4" class="text-center text-muted">Noch keine Testläufe vorhanden.</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<div th:replace="~{fragments :: nav}"></div>
+<h1>Testläufe</h1>
+<p><a href="/testlaeufe/neu">Neuen Testlauf anlegen</a></p>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Erstellungsdatum</th>
+            <th>Aktionen</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="t : ${testlaeufe}">
+            <td th:text="${t.id}"></td>
+            <td th:text="${t.name}"></td>
+            <td th:text="${t.erstellungsdatum}"></td>
+            <td>
+                <a th:href="@{/testlaeufe/{id}(id=${t.id})}">Details / Zuordnen</a>
+                <form th:action="@{/testlaeufe/{id}/loeschen(id=${t.id})}" method="post" style="display:inline">
+                    <button type="submit" onclick="return confirm('Testlauf wirklich löschen?')">Löschen</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(testlaeufe)}">
+            <td colspan="4">Noch keine Testläufe vorhanden.</td>
+        </tr>
+    </tbody>
+</table>
 </body>
 </html>

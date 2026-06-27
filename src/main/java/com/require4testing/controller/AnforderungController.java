@@ -2,9 +2,11 @@ package com.require4testing.controller;
 
 import com.require4testing.model.Anforderung;
 import com.require4testing.repository.AnforderungRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 public class AnforderungController {
@@ -35,7 +37,8 @@ public class AnforderungController {
 
     @GetMapping("/anforderungen/{id}/bearbeiten")
     public String bearbeitenForm(@PathVariable Long id, Model model) {
-        model.addAttribute("anforderung", repository.findById(id).orElseThrow());
+        model.addAttribute("anforderung", repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
         return "anforderung-form";
     }
 

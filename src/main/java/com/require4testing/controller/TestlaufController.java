@@ -5,9 +5,11 @@ import com.require4testing.model.Testlauf;
 import com.require4testing.repository.TestdurchfuehrungRepository;
 import com.require4testing.repository.TestfallRepository;
 import com.require4testing.repository.TestlaufRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 public class TestlaufController {
@@ -44,7 +46,8 @@ public class TestlaufController {
 
     @GetMapping("/testlaeufe/{id}")
     public String detail(@PathVariable Long id, Model model) {
-        Testlauf testlauf = testlaufRepository.findById(id).orElseThrow();
+        Testlauf testlauf = testlaufRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         model.addAttribute("testlauf", testlauf);
         model.addAttribute("testfaelle", testfallRepository.findAll());
         return "testlauf-detail";
@@ -54,10 +57,12 @@ public class TestlaufController {
     public String zuordnen(@PathVariable Long id,
                             @RequestParam Long testfallId,
                             @RequestParam String testerName) {
-        Testlauf testlauf = testlaufRepository.findById(id).orElseThrow();
+        Testlauf testlauf = testlaufRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         Testdurchfuehrung td = new Testdurchfuehrung();
         td.setTestlauf(testlauf);
-        testfallRepository.findById(testfallId).ifPresent(td::setTestfall);
+        td.setTestfall(testfallRepository.findById(testfallId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
         td.setTesterName(testerName);
         testdurchfuehrungRepository.save(td);
         return "redirect:/testlaeufe/" + id;
